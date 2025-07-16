@@ -1,0 +1,187 @@
+{{ define "home" }}
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="/static/material-components-web/dist/material-components-web.min.css">
+        <title>TinyMCE</title>
+        <style>
+            {{/*        :root {*/}}
+            {{/*            --mdc-theme-primary: #cfefff;*/}}
+            {{/*            --mdc-theme-secondary: #2f4055;*/}}
+            {{/*            --mdc-theme-background: #222f3e;*/}}
+            {{/*            --mdc-theme-surface: #2f4055;*/}}
+            {{/*            --mdc-theme-on-primary: #2f4055;*/}}
+            {{/*            --mdc-theme-on-secondary: #2f4055;*/}}
+            {{/*            --mdc-theme-on-surface: #2f4055;*/}}
+            {{/*            --mdc-theme-primary-bg: #222f3e;*/}}
+            {{/*            --mdc-theme-secondary-bg: #222f3e;*/}}
+            {{/*            --text-primary-on-light: #cfefff;*/}}
+            {{/*            --text-secondary-on-light: #cfefff;*/}}
+            {{/*            --text-primary-on-dark: #cfefff;*/}}
+            {{/*            --text-secondary-on-dark: #cfefff;*/}}
+            {{/*            --text-primary-on-background: #cfefff;*/}}
+            {{/*            --text-secondary-on-background: #cfefff;*/}}
+            {{/*        }*/}}
+            {{/*        body {*/}}
+            {{/*        background-color: #222f3e;*/}}
+            {{/*        }*/}}
+
+            .height-100 {
+                height: 100%;
+            }
+
+            .height-80 {
+                height: 80%;
+            }
+
+            .flex-row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .flex-column {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .space-around {
+                justify-content: space-around;
+            }
+
+            .gap-5 {
+                gap: 5rem;
+            }
+
+            .flex-grow-1 {
+                flex-grow: 1;
+            }
+
+            .flex-grow-4 {
+                flex-grow: 4;
+            }
+
+            .post-form {
+                margin: 4rem 1.5rem;
+                height: 85dvh;
+            }
+        </style>
+    </head>
+    <body>
+
+    <form method="post" action="/save" class="post-form">
+
+        <div class="flex-column height-100">
+            <div class="mdc-layout-grid__inner flex-column space-around height-100">
+                <div class="flex-row gap-5">
+                    <div class="flex-grow-1" data-mdc-auto-init="MDCTextField">
+                        <div class="mdc-text-field mdc-text-field--outlined" style="width: 100%">
+                            <input type="text" id="tf-outlined-written-by" class="mdc-text-field__input" name="author">
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="tf-outlined-written-by" class="mdc-floating-label">Written by</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow-1" data-mdc-auto-init="MDCTextField">
+                        <div class="mdc-text-field mdc-text-field--outlined" style="width: 100%">
+                            <input type="text" id="tf-outlined-date" class="mdc-text-field__input" name="date">
+                            <div class="mdc-notched-outline">
+                                <div class="mdc-notched-outline__leading"></div>
+                                <div class="mdc-notched-outline__notch">
+                                    <label for="tf-outlined-date" class="mdc-floating-label">Date</label>
+                                </div>
+                                <div class="mdc-notched-outline__trailing"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-grow-4">
+                    <label for="mytextarea"></label>
+                    <textarea id="mytextarea" name="content" class="height-80">Hello, World!</textarea>
+                </div>
+
+                <div class="flex-row gap-5">
+                    <div class="flex-grow-1">
+                        <div class="mdc-form-field">
+                            <div class="mdc-checkbox">
+                                <input type="checkbox" class="mdc-checkbox__native-control" id="checkbox-1"
+                                       name="terms-and-conditions" />
+                                <div class="mdc-checkbox__background">
+                                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                                        <path class="mdc-checkbox__checkmark-path" fill="none"
+                                              d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                                    </svg>
+                                    <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                            <label for="checkbox-1">I agree to the <a href="#">Terms and conditions</a></label>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow-1">
+                        <div style="text-align: right;">
+                            <button class="foo-button mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+                                Submit
+                                Claim
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="/static/material-components-web/dist/material-components-web.min.js"></script>
+    <script src="/static/tinymce/tinymce.min.js"></script>
+    {{/*<script src="/static/axios/dist/axios.min.js"></script>*/}}
+    <script>
+        mdc.autoInit();
+
+        tinymce.init({
+            selector: '#mytextarea',
+            license_key: 'gpl',
+            plugins: 'image autosave emoticons fullscreen lists advlist link table preview wordcount charmap save',
+            toolbar: [
+                {name: 'save', items: ['save']},
+                {name: 'history', items: ['undo', 'redo']},
+                {name: 'styles', items: ['styles']},
+                {name: 'formatting', items: ['bold', 'italic']},
+                {name: 'alignment', items: ['alignleft', 'aligncenter', 'alignright', 'alignjustify']},
+                {name: 'indentation', items: ['outdent', 'indent']},
+                {name: 'insert', items: ['table', 'numlist', 'bullist', 'link', 'image', 'charmap']},
+                {name: 'view', items: ['fullscreen']},
+            ],
+            images_upload_url: '/upload',
+            image_caption: true,
+            // skin: 'oxide-dark',
+            // content_css: 'dark',
+            promotion: false,
+        });
+
+        function removeElements() {
+            const branding = document.querySelector('.tox-statusbar__branding');
+            if (branding) {
+                const content = branding.querySelector('a');
+                if (content) {
+                    branding.innerHTML = content.innerHTML;
+                    clearInterval(interval);
+                    console.log("All target elements removed and interval stopped.");
+                }
+            }
+        }
+
+        const interval = setInterval(removeElements, 200);
+
+    </script>
+    </body>
+    </html>
+{{ end }}

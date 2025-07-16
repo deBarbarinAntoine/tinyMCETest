@@ -1,0 +1,15 @@
+{
+  "name": "js_dependencies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "echo \"Error: this is only a library, not a node.js server\" && exit 1"
+  },
+  "private": true,
+  "dependencies": {
+    "axios": "^1.10.0",
+    "material-components-web": "^14.0.0",
+    "tinymce": "^7.9.1"
+  }
+}

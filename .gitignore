@@ -1,0 +1,15 @@
+# GITIGNORE
+
+# IDE files
+.idea/
+
+# Dependencies
+vendor/
+node_modules/
+
+# Data
+uploads/
+
+# Secrets
+.env
+.envrc
