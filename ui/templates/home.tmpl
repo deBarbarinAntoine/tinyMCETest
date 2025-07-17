@@ -66,7 +66,7 @@
 
             .post-form {
                 margin: 4rem 1.5rem;
-                height: 85dvh;
+                min-height: 85dvh;
             }
         </style>
     </head>
@@ -161,10 +161,79 @@
                 {name: 'view', items: ['fullscreen']},
             ],
             images_upload_url: '/upload',
+            image_dimensions: false,
+            image_title: true,
             image_caption: true,
+            image_advtab: true,
             // skin: 'oxide-dark',
             // content_css: 'dark',
             promotion: false,
+
+            setup: (editor) => {
+
+                const resizeSelectedImg = (proportion) => {
+                    let currentNode = editor.selection.getNode();
+                    if (currentNode.nodeName.toLowerCase() === 'figure') {
+                        const image = currentNode.querySelector('img');
+                        if (image) {
+                            currentNode = image;
+                        }
+                    }
+                    if (proportion && proportion.match(/^(100|[1-9]?[0-9])%$/) && currentNode.nodeName.toLowerCase() === 'img') {
+
+                        // Get the original dimensions using naturalWidth and naturalHeight
+                        const originalWidth = currentNode.naturalWidth || currentNode.width;
+                        const originalHeight = currentNode.naturalHeight || currentNode.height;
+
+                        if (isNaN(originalWidth) || isNaN(originalHeight)) {
+                            return
+                        }
+
+                        const parsedProportion = parseInt(proportion, 10);
+
+                        // Calculate the new dimensions based on the proportion and original dimensions
+                        const newWidth = (originalWidth * parsedProportion) / 100;
+                        const newHeight = (originalHeight * parsedProportion) / 100;
+
+                        currentNode.setAttribute('width', newWidth);
+                        currentNode.setAttribute('height', newHeight);
+                    }
+                }
+
+                editor.ui.registry.addButton('resize25img', {
+                    text: '25%',
+                    onAction: (_) => resizeSelectedImg('25%')
+                });
+
+                editor.ui.registry.addButton('resize50img', {
+                    text: '50%',
+                    onAction: (_) => resizeSelectedImg('50%')
+                });
+
+                editor.ui.registry.addButton('resize75img', {
+                    text: '75%',
+                    onAction: (_) => resizeSelectedImg('75%')
+                });
+
+                editor.ui.registry.addButton('resize100img', {
+                    text: '100%',
+                    onAction: (_) => resizeSelectedImg('100%')
+                });
+
+                editor.ui.registry.addContextToolbar('imagetooltip', {
+                    predicate: (node) => {
+                        const isImg = node.nodeName.toLowerCase() === 'img';
+                        return isImg || (node.nodeName.toLowerCase() === 'figure' && !!node.querySelector('img'));
+                    },
+                    items: [
+                        { name: 'resizing', items: [ 'resize25img', 'resize50img', 'resize75img', 'resize100img' ] },
+                        { name: 'alignment', items: [ 'alignleft', 'aligncenter', 'alignright' ] },
+                        { name: 'edit', items: [ 'image' ] },
+                    ],
+                    position: 'node',
+                    scope: 'node'
+                });
+            },
         });
 
         function removeElements() {
