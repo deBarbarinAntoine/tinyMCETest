@@ -9,61 +9,32 @@
         <link rel="stylesheet" href="/static/material-components-web/dist/material-components-web.min.css">
         <title>TinyMCE</title>
         <style>
-            {{/*        :root {*/}}
-            {{/*            --mdc-theme-primary: #cfefff;*/}}
-            {{/*            --mdc-theme-secondary: #2f4055;*/}}
-            {{/*            --mdc-theme-background: #222f3e;*/}}
-            {{/*            --mdc-theme-surface: #2f4055;*/}}
-            {{/*            --mdc-theme-on-primary: #2f4055;*/}}
-            {{/*            --mdc-theme-on-secondary: #2f4055;*/}}
-            {{/*            --mdc-theme-on-surface: #2f4055;*/}}
-            {{/*            --mdc-theme-primary-bg: #222f3e;*/}}
-            {{/*            --mdc-theme-secondary-bg: #222f3e;*/}}
-            {{/*            --text-primary-on-light: #cfefff;*/}}
-            {{/*            --text-secondary-on-light: #cfefff;*/}}
-            {{/*            --text-primary-on-dark: #cfefff;*/}}
-            {{/*            --text-secondary-on-dark: #cfefff;*/}}
-            {{/*            --text-primary-on-background: #cfefff;*/}}
-            {{/*            --text-secondary-on-background: #cfefff;*/}}
-            {{/*        }*/}}
-            {{/*        body {*/}}
-            {{/*        background-color: #222f3e;*/}}
-            {{/*        }*/}}
-
             .height-100 {
                 height: 100%;
             }
-
             .height-80 {
                 height: 80%;
             }
-
             .flex-row {
                 display: flex;
                 flex-direction: row;
             }
-
             .flex-column {
                 display: flex;
                 flex-direction: column;
             }
-
             .space-around {
                 justify-content: space-around;
             }
-
             .gap-5 {
                 gap: 5rem;
             }
-
             .flex-grow-1 {
                 flex-grow: 1;
             }
-
             .flex-grow-4 {
                 flex-grow: 4;
             }
-
             .post-form {
                 margin: 4rem 1.5rem;
                 min-height: 85dvh;
@@ -240,14 +211,16 @@
             },
         });
 
+        let brandingInterval;
+
         function removeBrandingLink() {
             const branding = document.querySelector('.tox-statusbar__branding');
             if (branding) {
                 const content = branding.querySelector('a');
                 if (content) {
                     branding.innerHTML = content.innerHTML;
-                    clearInterval(interval);
-                    console.log("Branding link removed and interval stopped.");
+                    clearInterval(brandingInterval);
+                    console.log("Branding link removed successfully.");
                 }
             }
         }
@@ -258,7 +231,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initMDC();
             setupTinyMCE();
-            const interval = setInterval(removeBrandingLink, 200);
+            brandingInterval = setInterval(removeBrandingLink, 200);
         })
     </script>
     </body>
