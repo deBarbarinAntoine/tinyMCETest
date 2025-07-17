@@ -144,9 +144,13 @@
     <script src="/static/tinymce/tinymce.min.js"></script>
     {{/*<script src="/static/axios/dist/axios.min.js"></script>*/}}
     <script>
-        mdc.autoInit();
+        {{/*    ##############################################################    */}}
+        {{/*                   Initialization of the functions                    */}}
+        {{/*    ##############################################################    */}}
 
-        tinymce.init({
+        const initMDC = () => mdc.autoInit();
+
+        const setupTinyMCE = () => tinymce.init({
             selector: '#mytextarea',
             license_key: 'gpl',
             plugins: 'image autosave emoticons fullscreen lists advlist link table preview wordcount charmap save',
@@ -181,7 +185,7 @@
                     }
                     if (proportion && proportion.match(/^(100|[1-9]?[0-9])%$/) && currentNode.nodeName.toLowerCase() === 'img') {
 
-                        // Get the original dimensions using naturalWidth and naturalHeight
+                        {{/*    Get the original dimensions using naturalWidth and naturalHeight    */}}
                         const originalWidth = currentNode.naturalWidth || currentNode.width;
                         const originalHeight = currentNode.naturalHeight || currentNode.height;
 
@@ -191,7 +195,7 @@
 
                         const parsedProportion = parseInt(proportion, 10);
 
-                        // Calculate the new dimensions based on the proportion and original dimensions
+                        {{/*    Calculate the new dimensions based on the proportion and original dimensions    */}}
                         const newWidth = (originalWidth * parsedProportion) / 100;
                         const newHeight = (originalHeight * parsedProportion) / 100;
 
@@ -236,20 +240,26 @@
             },
         });
 
-        function removeElements() {
+        function removeBrandingLink() {
             const branding = document.querySelector('.tox-statusbar__branding');
             if (branding) {
                 const content = branding.querySelector('a');
                 if (content) {
                     branding.innerHTML = content.innerHTML;
                     clearInterval(interval);
-                    console.log("All target elements removed and interval stopped.");
+                    console.log("Branding link removed and interval stopped.");
                 }
             }
         }
 
-        const interval = setInterval(removeElements, 200);
-
+        {{/*    ##############################################################    */}}
+        {{/*                    Actual execution of the code                      */}}
+        {{/*    ##############################################################    */}}
+        document.addEventListener('DOMContentLoaded', () => {
+            initMDC();
+            setupTinyMCE();
+            const interval = setInterval(removeBrandingLink, 200);
+        })
     </script>
     </body>
     </html>
