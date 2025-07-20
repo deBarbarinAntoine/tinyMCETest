@@ -6,120 +6,185 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="/static/material-components-web/dist/material-components-web.min.css">
+        <link rel="stylesheet" href="/static/css/style.css">
         <title>TinyMCE</title>
-        <style>
-            .height-100 {
-                height: 100%;
-            }
-            .height-80 {
-                height: 80%;
-            }
-            .flex-row {
-                display: flex;
-                flex-direction: row;
-            }
-            .flex-column {
-                display: flex;
-                flex-direction: column;
-            }
-            .space-around {
-                justify-content: space-around;
-            }
-            .gap-5 {
-                gap: 5rem;
-            }
-            .flex-grow-1 {
-                flex-grow: 1;
-            }
-            .flex-grow-4 {
-                flex-grow: 4;
-            }
-            .post-form {
-                margin: 4rem 1.5rem;
-                min-height: 85dvh;
-            }
-        </style>
     </head>
     <body>
 
-    <form method="post" action="/save" class="post-form">
+    <div class="w-full flex-row my-1">
+        <div class="flex flex-row justify-end mx-5 my-2">
+            <label class="swap swap-rotate">
+                <!-- this hidden checkbox controls the state -->
+                <input type="checkbox" class="theme-controller" id="themeToggle" />
 
-        <div class="flex-column height-100">
-            <div class="mdc-layout-grid__inner flex-column space-around height-100">
-                <div class="flex-row gap-5">
-                    <div class="flex-grow-1" data-mdc-auto-init="MDCTextField">
-                        <div class="mdc-text-field mdc-text-field--outlined" style="width: 100%">
-                            <input type="text" id="tf-outlined-written-by" class="mdc-text-field__input" name="author">
-                            <div class="mdc-notched-outline">
-                                <div class="mdc-notched-outline__leading"></div>
-                                <div class="mdc-notched-outline__notch">
-                                    <label for="tf-outlined-written-by" class="mdc-floating-label">Written by</label>
-                                </div>
-                                <div class="mdc-notched-outline__trailing"></div>
-                            </div>
-                        </div>
+                <!-- sun icon -->
+                <svg
+                        class="swap-off h-10 w-10 fill-current"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                    <path
+                            d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
+                </svg>
+
+                <!-- moon icon -->
+                <svg
+                        class="swap-on h-10 w-10 fill-current"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                    <path
+                            d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
+                </svg>
+            </label>
+        </div>
+
+    </div>
+
+    <form method="post" action="/save" class="min-h-[85dvh] my-5 mx-2">
+
+        <div class="flex flex-col h-full">
+            <div class="flex flex-col justify-around h-full gap-5">
+                <div class="flex flex-row justify-around gap-5">
+                    <div class="grow">
+                        <label class="floating-label">
+                            <span>Written By</span>
+                            <input type="text" placeholder="Written By" class="input input-md" />
+                        </label>
                     </div>
 
-                    <div class="flex-grow-1" data-mdc-auto-init="MDCTextField">
-                        <div class="mdc-text-field mdc-text-field--outlined" style="width: 100%">
-                            <input type="text" id="tf-outlined-date" class="mdc-text-field__input" name="date">
-                            <div class="mdc-notched-outline">
-                                <div class="mdc-notched-outline__leading"></div>
-                                <div class="mdc-notched-outline__notch">
-                                    <label for="tf-outlined-date" class="mdc-floating-label">Date</label>
-                                </div>
-                                <div class="mdc-notched-outline__trailing"></div>
-                            </div>
-                        </div>
+                    <div class="flex justify-end grow">
+                        <label class="input">
+                            <span class="label">Publish date</span>
+                            <input type="date" />
+                        </label>
                     </div>
                 </div>
 
-                <div class="flex-grow-4">
+                <div class="grow-4">
                     <label for="mytextarea"></label>
-                    <textarea id="mytextarea" name="content" class="height-80">Hello, World!</textarea>
+                    <textarea id="mytextarea" name="content" class="flex flex-col h-[80%]">
+                        <h1 class="editable">Title</h1>
+                        <div class="h-separator"></div>
+                        <div class="editable textarea-content">Content</div>
+                    </textarea>
                 </div>
 
-                <div class="flex-row gap-5">
-                    <div class="flex-grow-1">
-                        <div class="mdc-form-field">
-                            <div class="mdc-checkbox">
-                                <input type="checkbox" class="mdc-checkbox__native-control" id="checkbox-1"
-                                       name="terms-and-conditions" />
-                                <div class="mdc-checkbox__background">
-                                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                        <path class="mdc-checkbox__checkmark-path" fill="none"
-                                              d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                                    </svg>
-                                    <div class="mdc-checkbox__mixedmark"></div>
-                                </div>
-                            </div>
-                            <label for="checkbox-1">I agree to the <a href="#">Terms and conditions</a></label>
-                        </div>
+                <div class="flex flex-row justify-between gap-5">
+                    <div class="grow">
+                        <label class="label">
+                            <input type="checkbox" checked="checked" class="checkbox" />
+                            I agree to the Terms and conditions
+                        </label>
                     </div>
 
-                    <div class="flex-grow-1">
-                        <div style="text-align: right;">
-                            <button class="foo-button mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
-                                Submit
-                                Claim
-                            </button>
-                        </div>
+                    <div class="flex justify-end grow">
+                        <button class="btn btn-outline btn-primary">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 
-    <script src="/static/material-components-web/dist/material-components-web.min.js"></script>
-    <script src="/static/tinymce/tinymce.min.js"></script>
-    {{/*<script src="/static/axios/dist/axios.min.js"></script>*/}}
+    <script src="/static/js/tinymce/tinymce.min.js"></script>
+    {{/*<script src="/static/js/axios/dist/axios.min.js"></script>*/}}
     <script>
         {{/*    ##############################################################    */}}
         {{/*                   Initialization of the functions                    */}}
         {{/*    ##############################################################    */}}
 
-        const initMDC = () => mdc.autoInit();
+        // Define your themes
+        const lightTheme = 'nord';
+        const darkTheme = 'dim';
+
+        const lightSkin = 'tinymce-5';
+        const darkSkin = 'tinymce-5-dark';
+
+        // Function to set the theme and store it
+        function setTheme(theme) {
+
+            const [ skin, previous ] = theme === lightTheme ? [ lightSkin, darkSkin ] : [ darkSkin, lightSkin ];
+
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+
+            if (window.tinyMCE_editor) {
+                window.tinyMCE_editor.ui.styleSheetLoader.unloadAll([
+                        `/static/js/tinymce/skins/ui/${previous}/skin.min.css`,
+                        `/static/js/tinymce/skins/ui/${previous}/content.min.css`
+                    ]);
+                window.tinyMCE_editor.dom.styleSheetLoader.unload(`/static/js/tinymce/skins/content/${previous}/content.min.css`);
+
+                window.tinyMCE_editor.ui.styleSheetLoader.loadAll([
+                    `/static/js/tinymce/skins/ui/${skin}/skin.min.css`,
+                    `/static/js/tinymce/skins/ui/${skin}/content.min.css`
+                ]);
+                window.tinyMCE_editor.dom.styleSheetLoader.load(`/static/js/tinymce/skins/content/${skin}/content.min.css`);
+
+            }
+        }
+
+        // Function to get the preferred theme
+        function getPreferredTheme() {
+            // 1. Check for stored preference
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme) {
+                return storedTheme;
+            }
+
+            // 2. Check system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return darkTheme;
+            }
+
+            // 3. Default to light theme if no preference found
+            return lightTheme;
+        }
+
+        // Function to get the preferred skin
+        function getPreferredSkin() {
+            const preferredTheme = getPreferredTheme();
+            return preferredTheme === lightTheme ? lightSkin : darkSkin;
+        }
+
+        let themeToggle;
+        let htmlElement;
+
+        const themeHandler = () => {
+
+            // Initialize theme on load
+            const initialTheme = getPreferredTheme();
+            setTheme(initialTheme);
+
+            // Set the initial state of the checkbox based on the applied theme
+            themeToggle.checked = (initialTheme === darkTheme);
+            // If you want the "swap" effect to work correctly with the checkbox,
+            // the checkbox value needs to be the theme it activates when checked.
+            // So, if checked means dark, its value should be the dark theme.
+            themeToggle.value = darkTheme;
+
+
+            // Listen for changes on the toggle button
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    setTheme(darkTheme);
+                } else {
+                    setTheme(lightTheme);
+                }
+            });
+
+            // Optional: Listen for system theme changes (e.g., user changes OS theme while browser is open)
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+                // Only react to system changes if no specific theme is set in localStorage
+                if (!localStorage.getItem('theme')) {
+                    if (event.matches) {
+                        setTheme(darkTheme);
+                    } else {
+                        setTheme(lightTheme);
+                    }
+                    // Update checkbox state to reflect the new system theme
+                    themeToggle.checked = (htmlElement.getAttribute('data-theme') === darkTheme);
+                }
+            });
+        }
 
         const setupTinyMCE = () => tinymce.init({
             selector: '#mytextarea',
@@ -135,14 +200,19 @@
                 {name: 'insert', items: ['table', 'numlist', 'bullist', 'link', 'image', 'charmap']},
                 {name: 'view', items: ['fullscreen']},
             ],
+            relative_urls: false,
             images_upload_url: '/upload',
             image_dimensions: false,
             image_title: true,
             image_caption: true,
             image_advtab: true,
-            // skin: 'oxide-dark',
-            // content_css: 'dark',
+            skin: getPreferredSkin(),
+            content_css: getPreferredSkin(),
+            // skin_url: '/static/js/tinymce/skins/ui/' + htmlElement.getAttribute('data-theme'),
+            content_style: '.h-separator {height: 2px; width: 100%; background-color: grey; margin: 1rem 0;}.textarea-content {flex: 1;}',
             promotion: false,
+            editable_root: false,
+            editable_class: 'editable',
 
             setup: (editor) => {
 
@@ -208,6 +278,8 @@
                     position: 'node',
                     scope: 'node'
                 });
+
+                window.tinyMCE_editor = editor;
             },
         });
 
@@ -229,7 +301,11 @@
         {{/*                    Actual execution of the code                      */}}
         {{/*    ##############################################################    */}}
         document.addEventListener('DOMContentLoaded', () => {
-            initMDC();
+
+            themeToggle = document.getElementById('themeToggle');
+            htmlElement = document.documentElement; // This refers to the <html> tag
+
+            themeHandler();
             setupTinyMCE();
             brandingInterval = setInterval(removeBrandingLink, 200);
         })

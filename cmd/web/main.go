@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"io/fs"
 	"log"
 	"log/slog"
 	"net/http"
@@ -11,39 +10,14 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	
-	"github.com/alexedwards/flow"
-	"tinyMCETest/ui"
 )
 
 var logger = slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
 
 func main() {
 	port := 3030
-	mux := flow.New()
 	
-	staticFS, err := fs.Sub(ui.NodeModules, "assets/js/node_modules")
-	if err != nil {
-		logger.Error(err.Error())
-		os.Exit(1)
-	}
-	mux.Handle("/static/...", http.StripPrefix("/static/", http.FileServer(http.FS(staticFS))), http.MethodGet)
-	
-	uploadsFile, err := os.OpenRoot("uploads")
-	if err != nil {
-		logger.Error(err.Error())
-		os.Exit(1)
-	}
-	uploadFS, err := fs.Sub(uploadsFile.FS(), ".")
-	if err != nil {
-		logger.Error(err.Error())
-		os.Exit(1)
-	}
-	mux.Handle("/uploads/...", http.StripPrefix("/uploads/", http.FileServer(http.FS(uploadFS))), http.MethodGet)
-	
-	mux.HandleFunc("/", home, http.MethodGet)
-	mux.HandleFunc("/upload", upload, http.MethodPost)
-	mux.HandleFunc("/save", save, http.MethodPost)
+	mux := router()
 	
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", port),
@@ -68,10 +42,6 @@ func main() {
 	}()
 	
 	logger.Info(fmt.Sprintf("Server listening on port %d", port))
-	// file, err := uploadFS.Open("GreatRuler_titlescreen.jpg")
-	// if err != nil {
-	// 	logger.Error(err.Error())
-	// }
-	// logger.Debug(fmt.Sprintf("file: %+v", file))
+	
 	log.Fatal(server.ListenAndServe())
 }

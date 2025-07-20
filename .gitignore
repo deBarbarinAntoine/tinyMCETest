@@ -7,9 +7,16 @@
 vendor/
 node_modules/
 
+# Generated files
+ui/assets/css/style.css
+
 # Data
 uploads/
 
 # Secrets
 .env
 .envrc
+
+# Other
+ui/assets/css/dim
+ui/assets/css/nord

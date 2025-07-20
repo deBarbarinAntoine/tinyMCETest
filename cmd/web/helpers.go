@@ -17,7 +17,7 @@ import (
 	"tinyMCETest/ui"
 )
 
-func render(w http.ResponseWriter, blockName string) {
+func render(w http.ResponseWriter, blockName string, data any) {
 	
 	// creating a bytes Buffer
 	buf := new(bytes.Buffer)
@@ -30,7 +30,7 @@ func render(w http.ResponseWriter, blockName string) {
 	
 	// executing the template in the buffer to catch any possible parsing error,
 	// so that the user doesn't see a half-empty page
-	err = tmpl.ExecuteTemplate(w, blockName, nil)
+	err = tmpl.ExecuteTemplate(w, blockName, data)
 	if err != nil {
 		logger.Error(err.Error())
 		return

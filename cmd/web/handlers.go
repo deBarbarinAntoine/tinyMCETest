@@ -11,7 +11,52 @@ func home(w http.ResponseWriter, r *http.Request) {
 	
 	logger.Info(fmt.Sprintf("%s %s", r.Method, r.URL.Path))
 	
-	render(w, "home")
+	render(w, "home", nil)
+}
+
+func menu(w http.ResponseWriter, r *http.Request) {
+	
+	logger.Info(fmt.Sprintf("%s %s", r.Method, r.URL.Path))
+	
+	var data = MenuData{
+		Title: "Projects",
+		H1:    "My personal projects",
+		Article: Article{
+			Title:       "MangaThorg",
+			ImageURL:    "/uploads/MangaThorg-EndingMaker.png",
+			Description: "A Manga website done in my first year using the API MangaDex",
+			CreatedAt:   time.Now().Format("02 Jan 2006"),
+			UpdatedAt:   time.Now().Format("02 Jan 2006"),
+		},
+		Articles: []Article{
+			{
+				Title:     "The Great Ruler",
+				ImageURL:  "/uploads/GreatRuler_titlescreen.jpg",
+				CreatedAt: time.Now().Format("02 Jan 2006"),
+				UpdatedAt: time.Now().Format("02 Jan 2006"),
+			},
+			{
+				Title:     "Link and the Guardians",
+				ImageURL:  "/uploads/zelda_linkarcguardian_2025-07-19T12:46.jpg",
+				CreatedAt: time.Now().Format("02 Jan 2006"),
+				UpdatedAt: time.Now().Format("02 Jan 2006"),
+			},
+			{
+				Title:     "Zelda - Breath of the Wild",
+				ImageURL:  "/uploads/zelda_titlescreenswordlandscape_2025-07-19T12:49.jpg",
+				CreatedAt: time.Now().Format("02 Jan 2006"),
+				UpdatedAt: time.Now().Format("02 Jan 2006"),
+			},
+			{
+				Title:     "Link with an arc",
+				ImageURL:  "/uploads/zelda_linkarc2_2025-07-17T00:09.jpg",
+				CreatedAt: time.Now().Format("02 Jan 2006"),
+				UpdatedAt: time.Now().Format("02 Jan 2006"),
+			},
+		},
+	}
+	
+	render(w, "menu", data)
 }
 
 func upload(w http.ResponseWriter, r *http.Request) {
@@ -39,7 +84,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 	// respond with a validation message and the image name
 	ajaxResponse(w, http.StatusOK, envelope{
 		"message":  msg,
-		"location": fmt.Sprintf("/%s", filePath),
+		"location": fmt.Sprintf("%s", filePath),
 	})
 }
 
